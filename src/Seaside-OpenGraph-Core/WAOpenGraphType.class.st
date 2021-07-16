@@ -9,3 +9,9 @@ WAOpenGraphType >> propertyName [
 
 	^ 'type'
 ]
+
+{ #category : #initialization }
+WAOpenGraphType >> typeName [
+
+	^ 'website'
+]

@@ -2,6 +2,7 @@ Class {
 	#name : #WAOpenGraphElement,
 	#superclass : #WAObject,
 	#instVars : [
+		'prefix',
 		'name',
 		'extras',
 		'content'
@@ -9,12 +10,28 @@ Class {
 	#category : #'Seaside-OpenGraph-Core'
 }
 
+{ #category : #'instance creation' }
+WAOpenGraphElement class >> named: aString [
+
+	^self new 
+		setName: aString;
+		yourself
+]
+
 { #category : #'as yet unclassified' }
 WAOpenGraphElement class >> named: aString content: contentString [
 
-	^ (self basicNew initializeWith: aString)
+	^ (self named: aString)
 		  content: contentString;
 		  yourself
+]
+
+{ #category : #'as yet unclassified' }
+WAOpenGraphElement class >> prefix: prefixString named: aString content: contentString [
+
+	^(self named: aString content: contentString)
+		setPrefix: prefixString;
+		yourself
 ]
 
 { #category : #initialization }
@@ -39,6 +56,7 @@ WAOpenGraphElement >> extras [
 WAOpenGraphElement >> initialize [ 
 
 	super initialize.
+	prefix := 'og'.
 	name := self propertyName.
 	extras := GRSmallDictionary new.
 ]
@@ -46,7 +64,21 @@ WAOpenGraphElement >> initialize [
 { #category : #initialization }
 WAOpenGraphElement >> propertyName [ 
 
-	self subclassResponsibility 
+	^'void'
+]
+
+{ #category : #initialization }
+WAOpenGraphElement >> setName: aString [
+	"Private - Sets the name of receiver to be aString."
+	
+	name := aString
+]
+
+{ #category : #initialization }
+WAOpenGraphElement >> setPrefix: aString [
+	"Private - Sets the prefix of receiver to be aString."
+	
+	prefix := aString
 ]
 
 { #category : #initialization }
@@ -54,7 +86,7 @@ WAOpenGraphElement >> updateBasicsIntoRoot: anHtmlRoot [
 
 	content notNil ifTrue: [ 
 		anHtmlRoot meta
-			name: 'og:' , name;
+			attributeAt: 'property' put: prefix, ':' , name;
 			content: content ]
 ]
 
@@ -63,7 +95,7 @@ WAOpenGraphElement >> updateExtrasIntoRoot: anHtmlRoot [
 
 	self extras keysAndValuesDo: [ :property :value | 
 		anHtmlRoot meta
-			name: 'og:' , name , ':' , property;
+			attributeAt: 'property' put: prefix, ':' , name , ':' , property;
 			content: value ]
 ]
 

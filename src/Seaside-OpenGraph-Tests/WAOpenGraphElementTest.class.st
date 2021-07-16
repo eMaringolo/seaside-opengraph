@@ -12,7 +12,7 @@ WAOpenGraphElementTest >> testImage [
 			WAOpenGraphDescriptor new
 				image: 'http://foo.baz/og.jpg';
 				updateRoot: root ]
-		gives: '<meta name="og:image:url" content="http://foo.baz/og.jpg"/>'
+		gives: '<meta property="og:image:url" content="http://foo.baz/og.jpg"/>'
 ]
 
 { #category : #tests }
@@ -26,7 +26,7 @@ WAOpenGraphElementTest >> testImageDimensions [
 					width: 500;
 					height: 200;
 				updateRoot: root ]
-		gives: '<meta name="og:image:url" content="http://foo.baz/og.jpg"/><meta name="og:image:width" content="500"/><meta name="og:image:height" content="200"/>'
+		gives: '<meta property="og:image:url" content="http://foo.baz/og.jpg"/><meta property="og:image:width" content="500"/><meta property="og:image:height" content="200"/>'
 ]
 
 { #category : #tests }
@@ -39,7 +39,7 @@ WAOpenGraphElementTest >> testImageExtras [
 					url: 'http://foo.baz/og.jpg';
 					secureUrl: 'https://foo.baz/og.jpg';
 				updateRoot: root ]
-		gives: '<meta name="og:image:url" content="http://foo.baz/og.jpg"/><meta name="og:image:secure_url" content="https://foo.baz/og.jpg"/>'
+		gives: '<meta property="og:image:url" content="http://foo.baz/og.jpg"/><meta property="og:image:secure_url" content="https://foo.baz/og.jpg"/>'
 ]
 
 { #category : #tests }
@@ -50,7 +50,7 @@ WAOpenGraphElementTest >> testTitle [
 			WAOpenGraphDescriptor new
 				title: 'OpenGraph';
 				updateRoot: root ]
-		gives: '<meta name="og:title" content="OpenGraph"/>'
+		gives: '<meta property="og:title" content="OpenGraph"/>'
 ]
 
 { #category : #tests }
@@ -61,5 +61,5 @@ WAOpenGraphElementTest >> testUrl [
 			WAOpenGraphDescriptor new
 				url: 'http://abc.xyz';
 				updateRoot: root ]
-		gives: '<meta name="og:url" content="http://abc.xyz"/>'
+		gives: '<meta property="og:url" content="http://abc.xyz"/>'
 ]

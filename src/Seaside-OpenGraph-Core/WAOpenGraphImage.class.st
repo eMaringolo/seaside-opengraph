@@ -31,7 +31,7 @@ WAOpenGraphImage >> secureUrl: aString [
 { #category : #initialization }
 WAOpenGraphImage >> url: aString [
 
-	self extraAt: 'url' put: aString
+	content := aString
 ]
 
 { #category : #extras }

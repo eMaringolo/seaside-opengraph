@@ -21,22 +21,29 @@ WAOpenGraphDescriptor >> addElement: aWAOpenGraphElement [
 	^self elements add: aWAOpenGraphElement
 ]
 
-{ #category : #'type-convenience' }
-WAOpenGraphDescriptor >> beArticle [
+{ #category : #properties }
+WAOpenGraphDescriptor >> description [
 
-	self type: 'article'
+	^ (self propertyAt: 'description') ifNotNil: [ :element | 
+		  element content ]
 ]
 
-{ #category : #'properties-basic' }
+{ #category : #properties }
 WAOpenGraphDescriptor >> description: aString [
 
-	self propertyAt: 'description' add: aString
+	^self addElement: (WAOpenGraphProperty named: 'description' content: aString)
 ]
 
 { #category : #properties }
 WAOpenGraphDescriptor >> elements [ 
 	
 	^elements
+]
+
+{ #category : #social }
+WAOpenGraphDescriptor >> fbAppId: aString [
+
+	^self addElement: (WAOpenGraphProperty prefix: 'fb' named: 'app_id' content: aString)
 ]
 
 { #category : #'properties-basic' }
@@ -59,15 +66,24 @@ WAOpenGraphDescriptor >> initialize [
 ]
 
 { #category : #properties }
-WAOpenGraphDescriptor >> title [
+WAOpenGraphDescriptor >> propertyAt: propertyName [
 
-	^self addElement: (WAOpenGraphTitle new)
+	^ self elements
+		  detect: [ :one | one name = propertyName ]
+		  ifNone: [  ]
 ]
 
-{ #category : #'properties-basic' }
+{ #category : #properties }
+WAOpenGraphDescriptor >> title [
+
+	^ (self propertyAt: 'title') ifNotNil: [ :element | 
+		  element content ]
+]
+
+{ #category : #properties }
 WAOpenGraphDescriptor >> title: aString [
 
-	self title content: aString
+	^self addElement: (WAOpenGraphProperty named: 'title' content: aString)
 ]
 
 { #category : #'properties-basic' }
@@ -85,5 +101,5 @@ WAOpenGraphDescriptor >> updateRoot: anHtmlRoot [
 { #category : #'properties-basic' }
 WAOpenGraphDescriptor >> url: stringOrWAUrl [
 
-	^ (self addElement: WAOpenGraphUrl new) content: stringOrWAUrl
+	^ self addElement: (WAOpenGraphProperty named: 'url' content: stringOrWAUrl)
 ]
