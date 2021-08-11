@@ -1,3 +1,6 @@
+"
+I'm the common superclass of all open graph properties and types.
+"
 Class {
 	#name : #WAOpenGraphElement,
 	#superclass : #WAObject,
