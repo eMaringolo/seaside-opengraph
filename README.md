@@ -1,4 +1,6 @@
-# seaside-opengraph
+# Seaside-OpenGraph
+![OpenGraph logo](https://ogp.me/logo.png)
+
 [OpenGraph](https://ogp.me) metadata generator for [Seaside](https://github.com/SeasideSt/Seaside).
 
 ## Brief description
