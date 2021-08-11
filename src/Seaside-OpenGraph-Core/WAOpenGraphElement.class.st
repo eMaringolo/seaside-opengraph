@@ -37,20 +37,26 @@ WAOpenGraphElement class >> prefix: prefixString named: aString content: content
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
+WAOpenGraphElement >> content [
+
+	^content
+]
+
+{ #category : #accessing }
 WAOpenGraphElement >> content: aString [ 
 
 	content := aString
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 WAOpenGraphElement >> extraAt: propertyName put: aString [
 	"Sets aString as the content for the structured propertyName."
 	
 	self extras at: propertyName put: aString
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 WAOpenGraphElement >> extras [ 
 	^extras
 ]
@@ -64,7 +70,13 @@ WAOpenGraphElement >> initialize [
 	extras := GRSmallDictionary new.
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
+WAOpenGraphElement >> name [
+
+	^name
+]
+
+{ #category : #accessing }
 WAOpenGraphElement >> propertyName [ 
 
 	^'void'
@@ -84,7 +96,7 @@ WAOpenGraphElement >> setPrefix: aString [
 	prefix := aString
 ]
 
-{ #category : #initialization }
+{ #category : #rendering }
 WAOpenGraphElement >> updateBasicsIntoRoot: anHtmlRoot [
 
 	content notNil ifTrue: [ 
@@ -93,7 +105,7 @@ WAOpenGraphElement >> updateBasicsIntoRoot: anHtmlRoot [
 			content: content ]
 ]
 
-{ #category : #initialization }
+{ #category : #rendering }
 WAOpenGraphElement >> updateExtrasIntoRoot: anHtmlRoot [
 
 	self extras keysAndValuesDo: [ :property :value | 
@@ -102,7 +114,7 @@ WAOpenGraphElement >> updateExtrasIntoRoot: anHtmlRoot [
 			content: value ]
 ]
 
-{ #category : #initialization }
+{ #category : #rendering }
 WAOpenGraphElement >> updateRoot: anHtmlRoot [
 
 	self updateBasicsIntoRoot: anHtmlRoot.

@@ -8,23 +8,30 @@ Class {
 WAOpenGraphPageOne class >> register [
 	<script>
 	
-	WAAdmin register: self asApplicationAt: '/opengraph'
+	WAAdmin register: self asApplicationAt: 'opengraph'
 ]
 
 { #category : #accessing }
 WAOpenGraphPageOne >> openGraphDescriptor [
 
-	^ WAOpenGraphDescriptor new
-		  title: 'Sample OpenGraph Seaside page';
-		  description:
-			  'This is a sample OpenGraph description generated in Seaside.';
-		  image: (WAUrl new
-				   scheme: self requestContext request url scheme;
-				   host: self requestContext request host;
-				   addAllToPath: (WAWelcomeFiles urlOf: #seasidestarPng) path;
-				   yourself);
-		  url: self requestContext request url;
-		  type: 'article'
+	| descriptor |
+	descriptor := WAOpenGraphDescriptor new
+		              title: 'Sample OpenGraph Seaside page';
+		              description:
+			              'This is a sample OpenGraph description generated in Seaside.';
+		              url: self requestContext request url;
+		              type: 'article';
+		              yourself.
+	descriptor addElement: (WAOpenGraphImage new
+			 url: (WAUrl new
+					  scheme: 'https';
+					  host: (self requestContext request host findTokens: ':') first;
+					  addAllToPath: (WAOpenGraphSampleLibrary urlOf: #seasidelogoPng) path;
+					  yourself);
+			 alt: 'Seaside Logo';
+			 width: 500;
+			 height: 500).
+	^ descriptor
 ]
 
 { #category : #rendering }
@@ -38,10 +45,5 @@ WAOpenGraphPageOne >> renderContentOn: html [
 WAOpenGraphPageOne >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.
-	anHtmlRoot title: 'Sample OpenGraph Seaside page'.
-	anHtmlRoot meta
-		name: 'description';
-		content:
-			'This is a sample OpenGraph description generated in Seaside.'.
-	self openGraphDescriptor updateRoot: anHtmlRoot
+	self openGraphDescriptor updateRoot: anHtmlRoot meta: true
 ]
